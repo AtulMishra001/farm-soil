@@ -1,5 +1,6 @@
 import {Link} from 'react-router-dom'
 function Home() {
+  fetch('https://psychic-goggles-v66w5wpp97563p666-5000.app.github.dev/working')
   return (
     <div>
       <div className="w-[100vw] h-[70vh] flex flex-col gap-[20px] justify-center  items-center"> 

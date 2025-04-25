@@ -2,11 +2,17 @@ function Register() {
   function handleSubmit(e) {
     e.preventDefault();
     const formData = {
-      email: e.target[0].value,
-      name: e.target[1].value,
+      username: e.target[1].value,
       password: e.target[2].value,
     };
-    console.log(formData);
+    fetch("https://psychic-goggles-v66w5wpp97563p666-5000.app.github.dev", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(formData)
+    })
+    .then(res => console.log(res.status));
   }
 
   return (

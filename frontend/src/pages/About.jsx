@@ -3,9 +3,9 @@ function About() {
       <div className="bg-green-50 min-h-screen">
         {/* Background Image */}
         <div
-          className="w-full h-[50vh] bg-cover "
+          className="w-full h-[50vh] bg-cover bg-bottom "
           style={{
-            backgroundImage: "url('https://www.villagesquare.in/wp-content/uploads/2023/05/Lead-01-30-1.jpg')", // Replace with your image URL
+            backgroundImage: "url('https://www.nature.com/scitable/content/ne0000/ne0000/ne0000/ne0000/84224221/bannerFinal_1_2.jpg')", // Replace with your image URL
           }}
         ></div>
   
