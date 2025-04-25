@@ -1,24 +1,56 @@
+import { useState } from 'react';
+
 function Register() {
-  function handleSubmit(e) {
+  const [registerMessage, setRegisterMessage] = useState({ text: "", type: "" });
+
+  async function handleSubmit(e) {
     e.preventDefault();
+    const form = e.target;
     const formData = {
-      username: e.target[1].value,
-      password: e.target[2].value,
+      username: form.name.value,
+      email: form.email.value,
+      password: form.password.value,
     };
-    fetch("https://psychic-goggles-v66w5wpp97563p666-5000.app.github.dev", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(formData)
-    })
-    .then(res => console.log(res.status));
+  
+    try {
+      const res = await fetch('http://localhost:8000/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      const data = await res.json();
+      if (res.ok) {
+        setRegisterMessage({ text: data.message, type: "success" });
+      } else {
+        setRegisterMessage({ text: data.message || data.error, type: "error" });
+      }
+      setTimeout(() => {
+        setRegisterMessage({ text: "", type: "" });
+      }, 3000);
+      
+    } catch (error) {
+      console.error('Fetch error:', error);
+    }
   }
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-green-50">
       <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-sm border border-green-200">
         <h1 className="text-2xl font-bold text-green-700 text-center mb-6">Register</h1>
+        {registerMessage.text && (
+          <div
+            className={`${
+              registerMessage.type === "success"
+                ? "text-green-700 bg-green-100 border border-green-400"
+                : "text-red-700 bg-red-100 border border-red-400"
+            } px-4 py-2 rounded mb-4 text-center`}
+          >
+            {registerMessage.text}
+          </div>
+        )}
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             required

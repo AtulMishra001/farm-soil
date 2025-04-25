@@ -10,7 +10,7 @@ import authRoutes from './routes/auth.js';
 
 const app = express();
 
-const allowedOrigin = 'https://psychic-goggles-v66w5wpp97563p666-8000.app.github.dev/';
+const allowedOrigin = ['http://localhost:7000'];
 
 
 app.use(cors({
@@ -25,15 +25,14 @@ app.use('/api/auth', authRoutes);
 
 
 // MongoDB connection
-connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
-.then(() => console.log('Connected to MongoDB Atlas'))
-.catch(err => console.error('MongoDB error:', err));
+connect(process.env.MONGO_URI)
+  .then(() => console.log('Connected to MongoDB Atlas'))
+  .catch(err => console.error('MongoDB error:', err));
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+const PORT = process.env.PORT || 8000;
+console.log(process.env.PORT);
+
+app.listen(8000, () => console.log(`Server running on port ${PORT}`));
 
 
 app.get('/', (req, res) => {
@@ -41,5 +40,5 @@ app.get('/', (req, res) => {
   });
 
 app.get('/working',(req, res)=> {
-    res.send("call is success full")
+    res.json({massege: "work in progress"})
 });
